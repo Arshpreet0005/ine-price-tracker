@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: ine-price-tracker-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install && npx playwright install --with-deps chromium
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: CRON_SECRET
+        sync: false
