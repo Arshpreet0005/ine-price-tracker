@@ -8,7 +8,7 @@ function sleep(ms) {
 
 async function scrapeProduct(url) {
   const browser = await chromium.launch({
-    headless: false
+    headless: true
   });
 
   try {
@@ -66,7 +66,7 @@ async function scrapeProduct(url) {
           /Couldn['’]t load the price/i.test(text) ||
           /challenge_failed/i.test(text)
         );
-        
+
         }, {
           timeout: 20000
         });
