@@ -4,7 +4,10 @@ const express = require("express");
 const cors = require("cors");
 
 const productRoutes = require("./routes/productRoutes");
-const { getProducts } = require("./services/productService");
+const {
+  getProducts,
+  getAllScrapeLogs
+} = require("./services/productService");
 const { scrapeAndSaveProduct } = require("./services/scrapeService");
 
 const app = express();
@@ -19,6 +22,24 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/products", productRoutes);
+
+app.get("/api/scrape-logs", async (req, res) => {
+  try {
+    const logs = await getAllScrapeLogs();
+
+    res.json({
+      success: true,
+      logs
+    });
+  } catch (error) {
+    console.error("GET /api/scrape-logs failed:", error);
+
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
 
 // Cron scraping endpoint (protected via query ?cron_secret= or X-Cron-Secret header)
 app.post("/api/cron/scrape", async (req, res) => {

@@ -151,6 +151,23 @@ async function getScrapeLogs(productId) {
   return data;
 }
 
+async function getAllScrapeLogs() {
+  const { data, error } = await supabase
+    .from("scrape_logs")
+    .select("*")
+    .order("scraped_at", {
+      ascending: false
+    });
+
+  if (error) {
+    throw new Error(
+      `Failed to fetch scrape logs: ${error.message}`
+    );
+  }
+
+  return data;
+}
+
 module.exports = {
   createProduct,
   getProducts,
@@ -158,5 +175,6 @@ module.exports = {
   savePriceHistory,
   saveScrapeLog,
   getPriceHistory,
-  getScrapeLogs
+  getScrapeLogs,
+  getAllScrapeLogs
 };

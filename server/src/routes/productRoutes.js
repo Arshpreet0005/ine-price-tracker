@@ -5,7 +5,8 @@ const {
   createProduct,
   getProductById,
   getPriceHistory,
-  getScrapeLogs
+  getScrapeLogs,
+  getAllScrapeLogs
 } = require("../services/productService");
 
 const {
@@ -89,6 +90,25 @@ router.get("/discover", async (req, res) => {
       "GET /api/products/discover failed:",
       error
     );
+
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// GET /api/products/scrape-logs
+router.get("/scrape-logs", async (req, res) => {
+  try {
+    const logs = await getAllScrapeLogs();
+
+    res.json({
+      success: true,
+      logs
+    });
+  } catch (error) {
+    console.error("GET /api/products/scrape-logs failed:", error);
 
     res.status(500).json({
       success: false,
