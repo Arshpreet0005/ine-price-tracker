@@ -41,6 +41,76 @@ ine-price-tracker/
 
 ---
 
+## Scraping
+
+The application uses Playwright to scrape the mock store.
+
+The scraper:
+
+1. Opens the product page.
+2. Locates the price-reveal control.
+3. Reveals the product information.
+4. Extracts the current selling price.
+5. Extracts stock information.
+6. Validates the extracted values.
+7. Stores successful results in the database.
+8. Records scraping attempts in the scrape logs.
+
+### Retry Handling
+
+The scraper allows up to 3 attempts for a product.
+
+Failed attempts use exponential backoff:
+
+```text
+Attempt 1 → wait 1 second
+Attempt 2 → wait 2 seconds
+Attempt 3 → final attempt
+
+Invalid price or stock data is not stored as a successful scrape.
+
+---
+
+## Scraping Schedule
+
+Tracked products are scraped automatically every 2 hours.
+
+The scheduled process calls:
+
+POST /api/cron/scrape
+
+The request must be authenticated using the configured CRON_SECRET.
+
+The secret can be supplied using either:
+
+X-Cron-Secret
+
+or:
+
+?cron_secret=...
+
+The cron endpoint processes all tracked products and records the result of each scrape.
+
+Successful scrapes create price history records.
+
+Failed scrapes are recorded in the scrape logs and do not create incorrect price-history entries.
+
+---
+
+## Manual Scraping
+
+A product can also be scraped manually through:
+
+POST /api/products/:id/scrape
+
+Example:
+
+curl -X POST http://localhost:5000/api/products/1/scrape
+
+The important difference is that each code block needs **one opening and one closing** triple backtick.
+
+---
+
 ## Local Setup
 
 ### Frontend
