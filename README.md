@@ -2,6 +2,11 @@
 
 A full-stack product price tracking application built for the **INE Software Engineer Intern Assignment**.
 
+## Live Demo
+
+- **Frontend:** ine-price-tracker-rkvyumkgh-arshpreet0005.vercel.app
+- **Backend API:** (https://ine-price-tracker-api-docker.onrender.com)
+
 ## Features
 
 - Discover products from the INE demo store
