@@ -4,7 +4,7 @@ A full-stack product price tracking application built for the **INE Software Eng
 
 ## Live Demo
 
-- **Frontend:** ine-price-tracker-rkvyumkgh-arshpreet0005.vercel.app
+- **Frontend:** https://ine-price-tracker-omega.vercel.app/
 - **Backend API:** (https://ine-price-tracker-api-docker.onrender.com)
 
 ## Features
